@@ -59,5 +59,9 @@ func (a *App) GenerateInterviewReportPDF(data *backend.Candidate, supervisor, su
 }
 
 func (a *App) MergeReportAndResumePDF(report, resume, outputDir string) error {
-    return backend.MergeResumeAndReport(report, resume, outputDir)
+	return backend.MergeResumeAndReport(report, resume, outputDir)
+}
+
+func (a *App) ExportInterviewExcelTemplate(dir string) error {
+	return backend.ExportInterviewExcelTemplate(dir)
 }

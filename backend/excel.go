@@ -1,7 +1,10 @@
 package backend
 
 import (
+	"embed"
 	"fmt"
+	"io/ioutil"
+	"path/filepath"
 	"strconv"
 
 	"github.com/xuri/excelize/v2"
@@ -33,6 +36,18 @@ type Score struct {
 	Alertness      int `json:"alertness"`
 	Maturity       int `json:"maturity"`
 	Growth         int `json:"growth"`
+}
+
+//go:embed interview_template.xlsx
+var interviewTemplate embed.FS
+
+func ExportInterviewExcelTemplate(dir string) error {
+	f, err := interviewTemplate.ReadFile("interview_template.xlsx")
+	if err != nil {
+		return err
+	}
+	filename := filepath.Join(filepath.Clean(dir), "interview_template.xlsx")
+	return ioutil.WriteFile(filename, f, 0644)
 }
 
 func GetExcelSheets(excelpath string) ([]string, error) {
